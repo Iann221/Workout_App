@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dss/base.dart' as base;
 import 'package:flutter_dss/pages/body.dart';
+import 'package:flutter_dss/pages/gender.dart';
+import 'package:flutter_dss/pages/mood.dart';
 
 class Home extends StatefulWidget {
 
@@ -98,14 +100,18 @@ class _HomeState extends State<Home> {
                       MediaQuery.of(context).size.height / 40,
                       0),
                   child: ElevatedButton(
-                      onPressed: () async {
-                        dayCount++;
-                        SharedPreferences pref = await SharedPreferences.getInstance();
-                        pref.setInt(base.daycount, dayCount);
-                        setState(() {
-                          dayCount = pref.getInt(base.daycount) ?? 0;
-                        });
-                        print('nambah 1 hari');
+                      onPressed: () {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (_) {
+                              return Mood();
+                            })
+                        );
+                        // dayCount++;
+                        // SharedPreferences pref = await SharedPreferences.getInstance();
+                        // pref.setInt(base.daycount, dayCount);
+                        // setState(() {
+                        //   dayCount = pref.getInt(base.daycount) ?? 0;
+                        // });
                       },
                       child: Text("I'm Ready"),
                     style: ElevatedButton.styleFrom(
@@ -127,9 +133,17 @@ class _HomeState extends State<Home> {
                     MediaQuery.of(context).size.height / 40,
                     0),
                 child: ElevatedButton(
-                    onPressed: () {
-                      print('hihi');
-                    },
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (_) {
+                          return Gender();
+                        })
+                    );
+                    // setState(() {
+                    //   dayCount = pref.getInt(base.daycount) ?? 0;
+                    // });
+                    print('masuk ke change info');
+                  },
                     child: Text("Change Info", style: TextStyle(color: base.frontColor)),
                   style: ElevatedButton.styleFrom(
                     primary: base.backColor,
@@ -150,7 +164,7 @@ class _HomeState extends State<Home> {
                     MediaQuery.of(context).size.height / 40,
                     0),
                 child: ElevatedButton(
-                    onPressed: () async {
+                    onPressed: () {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (_) {
                             return Body();
