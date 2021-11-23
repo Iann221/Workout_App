@@ -13,3 +13,9 @@ const String male = "assets/male.png";
 const String gender = 'gender';
 const String daycount = 'daycount';
 const String body = 'body';
+const String duration = 'duration';
+const String mood = 'mood';
+const String pain = 'pain';
+
+const String url = 'https://aniworkout-backend.herokuapp.com/api/';
+const String generateOneDay = 'workout/generate-one-day';

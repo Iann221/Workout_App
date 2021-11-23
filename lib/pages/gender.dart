@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dss/base.dart' as base;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dss/pages/home.dart';
+import 'package:flutter_dss/pages/duration.dart';
 
 class Gender extends StatefulWidget {
 
@@ -93,7 +95,11 @@ class _GenderState extends State<Gender> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        print('hihi');
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (_) {
+                              return Home();
+                            })
+                        );
                       },
                       child: Text("Back", style: TextStyle(color: base.frontColor)),
                       style: ElevatedButton.styleFrom(
@@ -115,6 +121,11 @@ class _GenderState extends State<Gender> {
                           SharedPreferences pref = await SharedPreferences.getInstance();
                           pref.setString(base.gender, selected);
                           // print(pref.getString(base.gender) ?? '');
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (_) {
+                                return Duration();
+                              })
+                          );
                         }
                       },
                       child: Text("Confirm"),
