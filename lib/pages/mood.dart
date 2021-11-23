@@ -66,7 +66,7 @@ class _MoodState extends State<Mood> {
                     SizedBox(height: 30),
                     customButton("Nothing","nothing"),
                     SizedBox(height: 30),
-                    customButton("A bit lazy","a bit lazy"),
+                    customButton("A bit lazy","lazy"),
                     Spacer(),
                     Padding(
                       padding: EdgeInsets.only(bottom:screenHeight*0.05),

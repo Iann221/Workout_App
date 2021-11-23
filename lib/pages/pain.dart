@@ -109,7 +109,7 @@ class _PainState extends State<Pain> {
                                 pref.setInt(base.daycount, daycount);
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (_) {
-                                      return Home();
+                                      return WorkoutPage();
                                     })
                                 );
                               }
