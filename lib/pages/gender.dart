@@ -36,7 +36,7 @@ class _GenderState extends State<Gender> {
           children: [
             Center(
               child: Image(
-                  image: AssetImage(base.male),
+                  image: AssetImage(ikon),
                   width: containerHeight*0.5,
                   height: containerHeight*0.5
               ),
@@ -84,9 +84,9 @@ class _GenderState extends State<Gender> {
                     )
                 ),
               ),
-              customButton(base.male,"Male","Male"),
+              customButton(base.male,"Male","male"),
               SizedBox(height: 30),
-              customButton(base.male,"Female","Female"),
+              customButton(base.female,"Female","female"),
               Spacer(),
               Padding(
                 padding: EdgeInsets.only(bottom:screenHeight*0.05),

@@ -16,7 +16,6 @@ class _PainState extends State<Pain> {
   double screenWidth = 0;
   double screenHeight = 0;
   double containerHeight = 0;
-  int daycount =0;
 
   Widget customButton(String teks, String indeks){
     return ElevatedButton(
@@ -105,8 +104,6 @@ class _PainState extends State<Pain> {
                                 SharedPreferences pref = await SharedPreferences.getInstance();
                                 pref.setString(base.pain, selected);
                                 print(pref.getString(base.pain) ?? '');
-                                daycount = (pref.getInt(base.daycount) ?? 0) + 1;
-                                pref.setInt(base.daycount, daycount);
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (_) {
                                       return WorkoutPage();

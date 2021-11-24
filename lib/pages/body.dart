@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dss/base.dart' as base;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dss/pages/home.dart';
+import 'package:flutter_dss/workout_api.dart';
 
 class Body extends StatefulWidget {
 
@@ -14,6 +15,7 @@ class _BodyState extends State<Body> {
   double screenWidth = 0;
   double screenHeight = 0;
   double containerHeight = 0;
+  WorkoutAPI woapi = new WorkoutAPI();
 
   Widget customButton(String ikon,String teks,String indeks){
     return GestureDetector(
@@ -35,7 +37,7 @@ class _BodyState extends State<Body> {
           children: [
             Center(
               child: Image(
-                  image: AssetImage(base.male),
+                  image: AssetImage(ikon),
                   width: containerHeight*0.5,
                   height: containerHeight*0.5
               ),
@@ -86,11 +88,11 @@ class _BodyState extends State<Body> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        customButton(base.male,"Arms","Arms"),customButton(base.male,"Abs","Abs")
+                        customButton(base.arms,"Arms","arms"),customButton(base.abs,"Abs","belly")
                       ]
                     ),
                     SizedBox(height: 30),
-                    customButton(base.male,"Legs","Legs"),
+                    customButton(base.legs,"Legs","legs"),
                     Spacer(),
                     Padding(
                       padding: EdgeInsets.only(bottom:screenHeight*0.05),
@@ -125,6 +127,7 @@ class _BodyState extends State<Body> {
                                 SharedPreferences pref = await SharedPreferences.getInstance();
                                 pref.setString(base.body, selected);
                                 pref.setInt(base.daycount, 1);
+                                await woapi.newWorkout(context);
                                 // print(pref.getString(base.gender) ?? '');
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (_) {

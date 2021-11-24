@@ -4,6 +4,7 @@ import 'package:flutter_dss/base.dart' as base;
 import 'package:flutter_dss/pages/body.dart';
 import 'package:flutter_dss/pages/gender.dart';
 import 'package:flutter_dss/pages/mood.dart';
+import 'package:flutter_dss/workout_api.dart';
 
 class Home extends StatefulWidget {
 
@@ -14,6 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int dayCount = 0;
   String body = "Haki";
+  WorkoutAPI woapi = new WorkoutAPI();
 
   Future<int> getDayCount() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -196,7 +198,7 @@ class _HomeState extends State<Home> {
                     0),
                 child: ElevatedButton(
                     onPressed: () {
-                      print('hihi');
+                      woapi.login('yanyan@gmail.com','hehehe');
                     },
                     child: Text("History", style: TextStyle(color: base.frontColor)),
                     style: ElevatedButton.styleFrom(

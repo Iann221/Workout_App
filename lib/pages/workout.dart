@@ -3,6 +3,8 @@ import 'package:flutter_dss/pages/pain.dart';
 import 'package:flutter_dss/workout_api.dart';
 import 'package:flutter_dss/base.dart' as base;
 import 'package:flutter_dss/workout_model.dart';
+import 'package:flutter_dss/pages/home.dart';
+import 'package:flutter_dss/pages/doing.dart';
 
 class WorkoutPage extends StatefulWidget {
   @override
@@ -32,7 +34,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   Widget _buildWorkout(Workout wo){
     return Container(
-      height: cardHeight,
+      height: cardHeight*0.7,
         decoration: BoxDecoration(
             color: Colors.transparent,
             border: Border(
@@ -64,7 +66,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   Widget _buildPage(){
     WorkoutAPI workoutAPI = new WorkoutAPI();
-    workoutAPI.getProgram();
     return Container(
       color: base.backColor,
       child: FutureBuilder(
@@ -76,89 +77,107 @@ class _WorkoutPageState extends State<WorkoutPage> {
             Program prg = snapshot.data;
             // _displayed = prg.workout.cast<Workout>();
             return Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        screenHeight * 0.05,
-                        screenHeight * 0.05,
-                        screenHeight * 0.05,
-                        screenHeight * 0.05),
-                    child: Text(
-                        "Here's what you need to do",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
                     children: [
-                      Text(
-                          prg.time ?? 'no data',
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            screenHeight * 0.05,
+                            screenHeight * 0.05,
+                            screenHeight * 0.05,
+                            screenHeight * 0.05),
+                        child: Text(
+                          (prg.set == 0) ? "No Workout today, get some rest" : "Here's what you need to do",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold
                           )
                       ),
-                      Text(
-                          prg.set.toString(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                          )
                       ),
-                      Text(
-                          prg.mode ?? 'no mode',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                          )
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        0,
-                        screenHeight * 0.05,
-                        0,
-                        screenHeight * 0.05),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        // print(pref.getString(base.duration) ?? '');
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (_) {
-                              return Pain();
-                            })
-                        );
-                      },
-                      child: Text("I'm Ready"),
-                      style: ElevatedButton.styleFrom(
-                        primary: base.frontColor,
-                        fixedSize: Size(screenWidth*0.8, 40),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                      Visibility(
+                        visible: prg.set!=0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                                prg.time ?? 'no data',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                )
+                            ),
+                            Text(
+                                prg.set.toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                )
+                            ),
+                            Text(
+                                prg.mode ?? 'no mode',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                )
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ),
-                  ListView.builder(
-                    itemCount: prg.workout.length,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index){
-                      return _buildWorkout(prg.workout[index]);
-                    },
-                  )
-                ]
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            0,
+                            screenHeight * 0.05,
+                            0,
+                            screenHeight * 0.05),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            // print(pref.getString(base.duration) ?? '');
+                            if(prg.set==0){
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (_) {
+                                    return Home();
+                                  })
+                              );
+                            } else {
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (_) {
+                                    return Doing(wos: prg.workout, set:prg.set, seq:0, now:1);
+                                  })
+                              );
+                            }
+                          },
+                          child: Text((prg.set == 0) ? "Back to home" : "I'm Ready"),
+                          style: ElevatedButton.styleFrom(
+                            primary: base.frontColor,
+                            fixedSize: Size(screenWidth*0.8, 40),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: prg.set != 0,
+                        child: ListView.builder(
+                          itemCount: prg.workout.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index){
+                            return _buildWorkout(prg.workout[index]);
+                          },
+                        ),
+                      )
+                    ]
+                ),
+              ]
             );
           }
         }
