@@ -5,6 +5,7 @@ import 'package:flutter_dss/pages/login.dart';
 import 'package:flutter_dss/pages/history.dart';
 import 'package:flutter_dss/pages/welcome.dart';
 
+
 void main() {
   runApp(MyApp());
 }
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'NunitoSans'
       ),
-      home: History(),
+      home: Login(),
     );
   }
 }

@@ -19,3 +19,5 @@ const String pain = 'pain';
 
 const String url = 'https://aniworkout-backend.herokuapp.com/api/';
 const String generateOneDay = 'workout/generate-one-day';
+const String loginURL = 'users/login';
+const String historyURL = 'users/history';

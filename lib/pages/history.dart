@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dss/base.dart' as base;
 import 'package:flutter_dss/pages/body.dart';
-import 'package:flutter_dss/historycard.dart';
+import 'package:flutter_dss/historymodel.dart';
+import 'package:intl/intl.dart';
 
 class History extends StatefulWidget {
 
@@ -13,11 +14,11 @@ class History extends StatefulWidget {
   _HistoryState createState() => _HistoryState();
 }
 
-List<HistoryCard> historyList = [
-  HistoryCard('12 Nov 2021', 'I''m Happy', 'I don''t feel anything','Arms'),
-  HistoryCard('13 Nov 2021', 'I''m Happy', 'I don''t feel anything','Arms'),
-  HistoryCard('14 Nov 2021', 'I''m Happy', 'I don''t feel anything','Arms'),
-  HistoryCard('15 Nov 2021', 'I''m Happy', 'I don''t feel anything','Arms')
+List<HistoryModel> historyListDummy = [
+  HistoryModel(date: 1111, mood: 'I''m Happy', pain: 'I don''t feel anything'),
+  HistoryModel(date: 1222, mood: 'I''m Happy', pain: 'I don''t feel anything'),
+  HistoryModel(date: 1333, mood: 'I''m Happy', pain: 'I don''t feel anything'),
+  HistoryModel(date: 1444, mood: 'I''m Happy', pain: 'I don''t feel anything'),
 ];
 
 List<Widget> cards = [];
@@ -27,6 +28,63 @@ List<Widget> cards = [];
 
 class _HistoryState extends State<History> {
 
+  Widget historyCard(int date, String mood, String pain){
+    var dt = DateFormat.yMMMd(date);
+    return Center(
+        child: Card(
+            margin: EdgeInsets.symmetric(vertical: 5.0, horizontal:20.0),
+            color: base.backColor,
+            child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    //   width: MediaQuery.of(context).size.width/2 - 10,
+                      alignment: Alignment.topLeft,
+
+                      child: Text("$date",
+                          style: new TextStyle(
+                              color: base.fontColor,
+                              fontSize: 18
+                          ),
+                          textAlign: TextAlign.left)
+                  ),
+                  Container(
+
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.fromLTRB(5.0, 3.0, 0.0, 3.0),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "$mood",
+                              style: new TextStyle(
+                                  color: base.fontColor, fontSize: 14
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+
+                          Container(
+                            padding: EdgeInsets.fromLTRB(5.0, 3.0, 0.0, 3.0),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "$pain",
+                              style: new TextStyle(
+                                  color: base.fontColor, fontSize: 14
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+
+                        ],
+                      )
+                  )
+                ]
+            )
+        )
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +138,7 @@ class _HistoryState extends State<History> {
                 ),
                 SingleChildScrollView(
                     child: Column(
-                      children: cards
+                      children: historyListDummy.map((historyDay) => historyCard(historyDay.date, historyDay.mood, historyDay.pain))
                     )
                   )
                 // )
@@ -90,77 +148,79 @@ class _HistoryState extends State<History> {
       ),
     );
   }
+
 }
 
 class HistoryCardState extends StatelessWidget {
   const HistoryCardState({Key? key}) : super(key: key);
 
-  Widget historyCard(String date, String mood, String pain, String bodyPart){
-    return Center(
-        child: Card(
-            margin: EdgeInsets.symmetric(vertical: 5.0, horizontal:20.0),
-            color: base.backColor,
-            child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Container(
-                    // padding: EdgeInsets.fromLTRB(left, top, right, bottom),
-                      width: MediaQuery.of(context).size.width/2 - 10,
-                      alignment: Alignment.topLeft,
-                      child: Text("$date",
-                          style: new TextStyle(
-                              color: base.fontColor,
-                              fontSize: 18
-                          ),
-                          textAlign: TextAlign.left)
-                  ),
-                  Container(
-                      width: MediaQuery.of(context).size.width/2 - 10,
-                      alignment: Alignment.centerLeft,
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.fromLTRB(5.0, 3.0, 0.0, 3.0),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "$mood",
-                              style: new TextStyle(
-                                  color: base.fontColor, fontSize: 14
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-
-                          Container(
-                            padding: EdgeInsets.fromLTRB(5.0, 3.0, 0.0, 3.0),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "$pain",
-                              style: new TextStyle(
-                                  color: base.fontColor, fontSize: 14
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(5.0, 3.0, 0.0, 3.0),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "$bodyPart",
-                              style: new TextStyle(
-                                  color: base.fontColor, fontSize: 14
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        ],
-                      )
-                  )
-                ]
-            )
-        )
-    );
-  }
+  // Widget historyCard(int date, String mood, String pain, String bodyPart){
+  //   var dt = DateFormat.yMMMd(date);
+  //   return Center(
+  //       child: Card(
+  //           margin: EdgeInsets.symmetric(vertical: 5.0, horizontal:20.0),
+  //           color: base.backColor,
+  //           child: Row(
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: <Widget>[
+  //                 Container(
+  //                   //   width: MediaQuery.of(context).size.width/2 - 10,
+  //                     alignment: Alignment.topLeft,
+  //
+  //                     child: Text("$date",
+  //                         style: new TextStyle(
+  //                             color: base.fontColor,
+  //                             fontSize: 18
+  //                         ),
+  //                         textAlign: TextAlign.left)
+  //                 ),
+  //                 Container(
+  //
+  //                     alignment: Alignment.centerLeft,
+  //                     child: Column(
+  //                       children: [
+  //                         Container(
+  //                           padding: EdgeInsets.fromLTRB(5.0, 3.0, 0.0, 3.0),
+  //                           alignment: Alignment.centerLeft,
+  //                           child: Text(
+  //                             "$mood",
+  //                             style: new TextStyle(
+  //                                 color: base.fontColor, fontSize: 14
+  //                             ),
+  //                             textAlign: TextAlign.left,
+  //                           ),
+  //                         ),
+  //
+  //                         Container(
+  //                           padding: EdgeInsets.fromLTRB(5.0, 3.0, 0.0, 3.0),
+  //                           alignment: Alignment.centerLeft,
+  //                           child: Text(
+  //                             "$pain",
+  //                             style: new TextStyle(
+  //                                 color: base.fontColor, fontSize: 14
+  //                             ),
+  //                             textAlign: TextAlign.left,
+  //                           ),
+  //                         ),
+  //                         Container(
+  //                           padding: EdgeInsets.fromLTRB(5.0, 3.0, 0.0, 3.0),
+  //                           alignment: Alignment.centerLeft,
+  //                           child: Text(
+  //                             "$bodyPart",
+  //                             style: new TextStyle(
+  //                                 color: base.fontColor, fontSize: 14
+  //                             ),
+  //                             textAlign: TextAlign.left,
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     )
+  //                 )
+  //               ]
+  //           )
+  //       )
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
