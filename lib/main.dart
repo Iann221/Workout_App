@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'DSS App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'NunitoSans'
       ),
       home: Home(),
     );

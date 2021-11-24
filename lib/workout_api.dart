@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_dss/historymodel.dart';
 import 'package:flutter_dss/workout_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dss/base.dart' as base;
@@ -47,6 +48,28 @@ class WorkoutAPI {
 
     return program;
   }
+
+  // Future<List<HistoryModel>> getHistory() async{
+  //   var url = Uri.parse(base.url + base.historyURL);
+  //   var response = await http.get(
+  //       url,
+  //       headers: {
+  //         "Authorization" : token
+  //       }
+  //
+  //
+  //   );
+  //   Map<String, dynamic> historyRaw = jsonDecode(response.body)['data'];
+  //   // Program program = Program.fromJSON(decoded);
+  //   // print('mode:');
+  //   // print(program.workout[0].desc[0]);
+  //   List<HistoryModel> historyList = [];
+  //   for (var h in historyRaw){
+  //     historyList.add(new HistoryModel(h.date, h.mood, h.pain))
+  //   }
+  //
+  //   return historyList;
+  // }
 
   Future<void> addHistory(Map<String, dynamic> json, String mood, String pain) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
