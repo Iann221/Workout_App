@@ -1,6 +1,6 @@
 class Program {
   String? time;
-  int? set;
+  int set = 0;
   String? mode;
   List<Workout> workout = [];
 
@@ -15,9 +15,14 @@ class Program {
     this.time = json['time'];
     this.set = json['set'];
     this.mode = json['mode'];
-    for (var i = 0; i < json['workout'].length; i++){
-      Workout wo = Workout.fromJSON(json['workout'][i]);
+    if(json['workout'].length == 0){
+      Workout wo = new Workout(name: 'rest', repetition: 0, desc: ['rest']);
       this.workout.add(wo);
+    } else {
+      for (var i = 0; i < json['workout'].length; i++){
+        Workout wo = Workout.fromJSON(json['workout'][i]);
+        this.workout.add(wo);
+      }
     }
   }
 

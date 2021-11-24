@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dss/pages/home.dart';
-import 'package:flutter_dss/pages/gender.dart';
+import 'package:flutter_dss/pages/doing.dart';
 
 void main() {
   runApp(MyApp());
