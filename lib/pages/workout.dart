@@ -87,14 +87,14 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             screenHeight * 0.05,
                             screenHeight * 0.05),
                         child: Text(
-                            (prg.set == 0) ? "No Workout today, get some rest" : "Here's what you need to do",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold
-                            )
-                        ),
+                          (prg.set == 0) ? "No Workout today, get some rest" : "Here's what you need to do",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold
+                          )
+                      ),
                       ),
                       Visibility(
                         visible: prg.set!=0,
@@ -149,7 +149,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             } else {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (_) {
-                                    return Doing(wos: prg.workout, set:prg.set, seq:0);
+                                    return Doing(wos: prg.workout, set:prg.set, seq:0, now:1);
                                   })
                               );
                             }

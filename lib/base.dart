@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 const Color backColor = Color(0xff212121);
-const Color frontColor = Colors.orange;
+const Color frontColor = Color(0xFFF49774);
+const Color fontColor = Color(0xFFF3F3F3);
 
 // assets
 const String male = "assets/male.png";
@@ -11,6 +12,7 @@ const String abs = "assets/abs.png";
 const String arms = "assets/arm.png";
 const String legs = "assets/legs.png";
 const String pushup = "assets/pushup.gif";
+
 
 // prefs
 const String gender = 'gender';

@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   shared_preferences: ^2.0.8
   http: ^0.13.4
+  intl: ^0.17.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -68,6 +70,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+fonts:
+  - family: NunitoSans
+    fonts:
+      - asset: fonts/NunitoSans-Regular.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
