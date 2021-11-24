@@ -196,20 +196,20 @@ class _HomeState extends State<Home> {
                     MediaQuery.of(context).size.height / 40,
                     MediaQuery.of(context).size.height / 40,
                     0),
-                child: ElevatedButton(
-                    onPressed: () {
-                      woapi.login('yanyan@gmail.com','hehehe');
-                    },
-                    child: Text("History", style: TextStyle(color: base.frontColor)),
-                    style: ElevatedButton.styleFrom(
-                      primary: base.backColor,
-                      fixedSize: Size(screenWidth, 40),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: BorderSide(color: base.frontColor)
-                      ),
-                    ),
-                ),
+                // child: ElevatedButton(
+                //     onPressed: () {
+                //       woapi.login('yanyan@gmail.com','hehehe');
+                //     },
+                //     child: Text("History", style: TextStyle(color: base.frontColor)),
+                //     style: ElevatedButton.styleFrom(
+                //       primary: base.backColor,
+                //       fixedSize: Size(screenWidth, 40),
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(20),
+                //         side: BorderSide(color: base.frontColor)
+                //       ),
+                //     ),
+                // ),
               ),
             ],
           )

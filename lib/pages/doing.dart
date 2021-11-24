@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dss/base.dart' as base;
 import 'package:flutter_dss/workout_model.dart';
 import 'package:flutter_dss/pages/home.dart';
+import 'package:flutter_dss/picker.dart';
 
 class Doing extends StatefulWidget {
   List<Workout> wos;
@@ -23,6 +24,7 @@ class _DoingState extends State<Doing> {
   int set;
   int seq;
   int now;
+  Picker pick = new Picker();
 
   double screenWidth = 0;
   double screenHeight = 0;
@@ -55,95 +57,99 @@ class _DoingState extends State<Doing> {
     print(wos[seq].name);
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          color: base.backColor,
-          child: Column(
-            children: [
-              Image(
-                  image: AssetImage(base.pushup),
-                  width: screenWidth
-              ),
-              Text(
-                  wos[seq].name ?? 'no data',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  )
-              ),
-              Text(
-                  'set ' + now.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  )
-              ),
-              Text(
-                  'rep ' + wos[seq].repetition.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  )
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder:(BuildContext context)=>_buildDesc(context),
-                  );
-                },
-                child: Text('Description'),
-                style: ElevatedButton.styleFrom(
-                primary: base.backColor,
-                fixedSize: Size(screenWidth*0.8, 40),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                   ),
+          child: Container(
+            color: base.backColor,
+            child: Column(
+              children: [
+                Image(
+                    image: AssetImage(pick.pick(wos[seq].name)),
+                    width: screenWidth
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  // print(pref.getString(base.duration) ?? '');
-                  if(seq!=wos.length-1){
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (_) {
-                          return Doing(wos:wos,set:set,seq:(seq+1),now:now);
-                        })
+                SizedBox(height: 5,),
+                Text(
+                    wos[seq].name ?? 'no data',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
+                SizedBox(height: 5,),
+                Text(
+                    'set ' + now.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
+                SizedBox(height: 5,),
+                Text(
+                    'rep ' + wos[seq].repetition.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder:(BuildContext context)=>_buildDesc(context),
                     );
-                  } else {
-                    if(now==set){
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) {
-                            return Home();
-                          })
-                      );
-                    } else {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) {
-                            return Doing(wos:wos, set: set,seq:0,now: now+1);
-                          })
-                      );
-                    }
-                  }
-                },
-                child: Text('Next'),
-                style: ElevatedButton.styleFrom(
-                  primary: base.frontColor,
+                  },
+                  child: Text('Description'),
+                  style: ElevatedButton.styleFrom(
+                  primary: base.backColor,
                   fixedSize: Size(screenWidth*0.8, 40),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(color: base.frontColor)
+                     ),
                   ),
                 ),
-              ),
-            ],
+                ElevatedButton(
+                  onPressed: () async {
+                    // print(pref.getString(base.duration) ?? '');
+                    if(seq!=wos.length-1){
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) {
+                            return Doing(wos:wos,set:set,seq:(seq+1),now:now);
+                          })
+                      );
+                    } else {
+                      if(now==set){
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (_) {
+                              return Home();
+                            })
+                        );
+                      } else {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (_) {
+                              return Doing(wos:wos, set: set,seq:0,now: now+1);
+                            })
+                        );
+                      }
+                    }
+                  },
+                  child: Text('Next'),
+                  style: ElevatedButton.styleFrom(
+                    primary: base.frontColor,
+                    fixedSize: Size(screenWidth*0.8, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         )
-      )
     );
   }
 }
