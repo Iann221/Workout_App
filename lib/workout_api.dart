@@ -43,7 +43,7 @@ class WorkoutAPI {
     pref.setInt(base.daycount, daycount);
 
     // add history
-    addHistory(decoded, mood, pain);
+    // addHistory(decoded, mood, pain);
 
     return program;
   }
